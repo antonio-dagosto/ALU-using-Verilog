@@ -2,17 +2,13 @@ module Complete_MIPS(CLK, RST, HALT, Reg1_Out);
     input CLK;
     input RST;
     input HALT;
-    //output [6:0] A_Out;
-    //output [31:0] D_Out;
     output [7:0]Reg1_Out;
     
     wire slow_clk;
-    
         complexDivider divider (
         .clk100Mhz(CLK),
         .reset(RST),
         .slowClk(slow_clk) // Internal slow clock signal
-    
     );
     
     wire CS, WE;
@@ -20,10 +16,7 @@ module Complete_MIPS(CLK, RST, HALT, Reg1_Out);
     wire [31:0] Mem_Bus;
     wire [31:0]reg1_data;
 	
-//	assign A_Out = ADDR;
-//   assign D_Out = Mem_Bus;
     assign Reg1_Out = reg1_data[7:0];
-    //insert slow clk
     
     MIPS CPU(slow_clk, RST, CS, WE, ADDR, Mem_Bus, HALT, reg1_data);
     Memory MEM(CS, WE, slow_clk, ADDR, Mem_Bus);
@@ -71,14 +64,7 @@ module REG(CLK, RegW, DR, SR1, SR2, Reg_In, ReadReg1, ReadReg2, Reg1);
     output reg [31:0] Reg1;
 
     reg [31:0] REG [0:31];
-    /*
-    initial begin
-        ReadReg1 = 0;
-        ReadReg2 = 0;
-        Reg1 = 0;
-        REG[20] = 0;
-    end
-    */
+ 
     always @(posedge CLK) begin
         if (RegW == 1'b1) 
             REG[DR] <= Reg_In[31:0];

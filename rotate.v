@@ -37,7 +37,7 @@ module Memory(CS, WE, CLK, ADDR, Mem_Bus);
     initial
     begin
     /* Write your readmemh code here */
-    $readmemh("C:\\Users\\dgonz\\Downloads\\Lab5\\lab4_instructions.txt", RAM);
+		$readmemh("PATH NAME HERE...", RAM);
     end
     
     assign Mem_Bus = ((CS == 1'b0) || (WE == 1'b1)) ? 32'bZ : data_out;
